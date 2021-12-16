@@ -21,9 +21,10 @@ screen = pygame.display.set_mode(size)
 pygame.display.set_caption('Flappy bird')
 running = True
 clock = pygame.time.Clock()
-image = load_image("square.png")
-perv_etap = load_image('vtor_etav.png')
-vtor_etap = load_image('tret_etav.png')
+perv_etap = load_image('524.png')
+vtor_etap = load_image('525.png')
+tret_etap = load_image('526.png')
+chet_etap = load_image('527.png')
 
 t = 0
 g = 9.8
@@ -32,6 +33,7 @@ v = 0
 vniz = True
 k = 0
 
+print(perv_etap, vtor_etap)
 '''----------Основной игровой цикл----------'''
 while running:
     for event in pygame.event.get():
@@ -51,13 +53,17 @@ while running:
             t -= 2 / 60
         else:
             vniz = True
-    if str(k).isdigit() and k & 60 == 0:
+    if k & 12 == 0:
         last_image = perv_etap
-    elif str(k).isdigit() and k & 4 == 15:
+    elif k & 12 == 4:
         last_image = vtor_etap
+    elif k & 12 == 8:
+        last_image = tret_etap
+    elif k & 16 == 11:
+        last_image = chet_etap
     k += 1
-    screen.fill((230, 230, 230))
-    screen.blit(image, (230, y))
+    screen.fill((100, 100, 100))
+    screen.blit(last_image, (230, y))
     pygame.display.flip()
     clock.tick(60)
 pygame.quit()
