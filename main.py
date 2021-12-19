@@ -15,12 +15,6 @@ pygame.display.set_caption('Flappy bird')
 running = True
 clock = pygame.time.Clock()
 
-
-
-'''----------Создаем класс с птицей----------'''
-
-
-
 '''----------Создаем все нужные переменные и задаем все классы----------'''
 
 t = 0
@@ -30,11 +24,9 @@ v = 0
 k = 0
 
 vniz = True
-
 sostoyanie = Sostoyaniye()
 sostoyanie.set('Игра')
 Bird(y)
-
 
 '''----------Основной игровой цикл----------'''
 while running:
@@ -45,9 +37,11 @@ while running:
         if event.type == pygame.KEYDOWN and event.key == pygame.K_SPACE and status[1]:
             vniz = False
             t = 0.7
+
     '''-----Блок с лобби-----'''
     if status[0]:
         pass
+
     '''-----Блок с игрой-----'''
     if status[1]:
         if vniz:
@@ -63,6 +57,7 @@ while running:
         screen.fill((100, 100, 100))
         sprites_games.draw(screen)
         sprites_games.update(y)
+
     '''-----Блок с настройками-----'''
     if status[2]:
         pass
