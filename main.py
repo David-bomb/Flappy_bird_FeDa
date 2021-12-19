@@ -1,15 +1,14 @@
 import pygame
-import os
-import sys
 from Sostoyaniye import Sostoyaniye
 from Bird import Bird
 from initial import sprites_games
+from walls import Walls
 
 
 '''----------Создаем холст----------'''
 
 pygame.init()
-size = width, height = 600, 750
+size = width, height = 800, 500
 screen = pygame.display.set_mode(size)
 pygame.display.set_caption('Flappy bird')
 running = True
@@ -34,7 +33,7 @@ vniz = True
 sostoyanie = Sostoyaniye()
 sostoyanie.set('Игра')
 Bird(y)
-
+Walls(0, 0)
 
 '''----------Основной игровой цикл----------'''
 while running:
