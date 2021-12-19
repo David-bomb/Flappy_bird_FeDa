@@ -4,7 +4,6 @@ from initial import perv_etap, vtor_etap, tret_etap, chet_etap, sprites_games
 
 class Bird(pygame.sprite.Sprite):
     def __init__(self, y):
-        global perv_etap
         super().__init__(sprites_games)
         self.image = perv_etap
         self.rect = self.image.get_rect()
