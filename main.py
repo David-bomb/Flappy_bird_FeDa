@@ -1,10 +1,9 @@
 import pygame
 from Sostoyaniye import Sostoyaniye
 from initial import sprites_games, y, sprites_games1
-from initial import perv_etap, vtor_etap, tret_etap, chet_etap
 from walls import Walls
-from Bird import bird
 from random import randint
+from borders import Border
 
 
 
@@ -23,11 +22,12 @@ clock = pygame.time.Clock()
 '''----------Создаем все нужные переменные и задаем все классы----------'''
 y2 = 50
 x1 = 550
+test_level = []
 for i in range(15):
-    y1 = randint(y2 - 100, y2 + 100)
+    y1 = randint(y2 - 75, y2 + 50)
     y2 = y1
-    Walls(y1 - 50, x1)
-    x1 += 150
+    Walls (y1 - 730, x1)
+    x1 += 250
 t = 0
 g = 9.8
 v = 0
