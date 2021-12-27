@@ -21,13 +21,12 @@ clock = pygame.time.Clock()
 
 
 '''----------Создаем все нужные переменные и задаем все классы----------'''
-y2 = 0
+y2 = 50
 x1 = 550
-for i in range(3):
-    y1 = randint(y2 - 75, y2 + 75)
+for i in range(15):
+    y1 = randint(y2 - 100, y2 + 100)
     y2 = y1
-    print(y1, x1)
-    Walls(y1, x1)
+    Walls(y1 - 50, x1)
     x1 += 150
 t = 0
 g = 9.8
@@ -36,19 +35,15 @@ k = 0
 vniz = True
 sostoyanie = Sostoyaniye()
 sostoyanie.set('Игра')
-x = 570
 '''----------Основной игровой цикл----------'''
 while running:
-    x -= 2
-    if x == -280:
-        x = 570
     status = [False, True, False]
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             running = False
         if event.type == pygame.KEYDOWN and event. key == pygame.K_SPACE and status[1]:
             vniz = False
-            t = 0.7
+            t = 0.55
     '''-----Блок с лобби-----'''
     if status[0]:
         pass
