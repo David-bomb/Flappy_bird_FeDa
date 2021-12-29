@@ -1,6 +1,7 @@
 import pygame
 import os
 import sys
+from Sostoyaniye import Sostoyaniye
 
 
 def load_image(name, colorkey=None):
@@ -16,14 +17,14 @@ def load_image(name, colorkey=None):
 sprites_lobby = pygame.sprite.Group()
 
 sprites_games = pygame.sprite.Group()
-
 sprites_games1 = pygame.sprite.Group()
-
 sprites_games2 = pygame.sprite.Group()
 
+sprites_gameover = pygame.sprite.Group()
 # создадим спрайт
 sprite = pygame.sprite.Sprite()
 
+sostoyanie = Sostoyaniye()
 
 perv_etap = load_image('524.png')
 vtor_etap = load_image('525.png')

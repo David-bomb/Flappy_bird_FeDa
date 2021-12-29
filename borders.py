@@ -11,5 +11,6 @@ class Border(pygame.sprite.Sprite):
             x, y, width, height)
         self.x = x
         self.y = y
+
     def rect(self):
         return self.barrierRect

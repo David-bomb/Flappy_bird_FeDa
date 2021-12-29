@@ -2,21 +2,26 @@ class Sostoyaniye():
     def __init__(self):
         self.lobby = False
         self.game = False
-        self.settings = False
+        self.level = False
 
     def set(self, status):
         if status == 'Лобби':
             self.lobby = True
             self.game = False
-            self.settings = False
-        if status == 'Настройки':
-            self.lobby = False
-            self.game = False
-            self.settings = True
-        if status == 'Игра':
+            self.level = False
+        elif status == 'Игра':
             self.lobby = False
             self.game = True
-            self.settings = False
+            self.level = False
+        elif status == 'Уровни':
+            self.lobby = False
+            self.game = False
+            self.level = True
 
-    def __str__(self):
-        return self.lobby, self.game, self.settings
+    def sost(self):
+        if self.lobby:
+            return [True, False, False]
+        elif self.game:
+            return [False, True, False]
+        elif self.level:
+            return [False, False, True]
