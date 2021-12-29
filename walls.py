@@ -23,19 +23,19 @@ class Walls(pygame.sprite.Sprite):
         # Реализация столкновений
         if pygame.sprite.collide_mask(self, bird):
             sostoyanie.set('Уровни')
-        elif self.rect.x == -250:
+        elif self.rect.x == -280:
             self.nov = True
         else:
             self.rect.x = self.x
-            if self.x > -250:
+            if self.x > -280:
                 self.x -= 2
 
-    def walls(self):
+    def walls(self): # показывает ушла ли труба за пределы экрана
         if self.nov:
             self.nov = False
             return True
         else:
             return False
 
-    def coord(self):
+    def coord(self): # выводит координаты трубы
         return [self.rect.x, self.rect.y]

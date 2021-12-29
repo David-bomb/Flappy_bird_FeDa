@@ -18,7 +18,7 @@ class Sostoyaniye():
             self.game = False
             self.level = True
 
-    def sost(self):
+    def sost(self): # выводит то, какое сейчас открыто окно
         if self.lobby:
             return [True, False, False]
         elif self.game:

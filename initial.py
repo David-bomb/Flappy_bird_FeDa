@@ -32,4 +32,9 @@ tret_etap = load_image('526.png')
 chet_etap = load_image('527.png')
 tube = load_image('tube_huuuuge.png')
 tube_1 = pygame.transform.scale(tube, (500, 2000))
+
 y = 350
+t = 0
+g = 9.8
+v = 0
+k = 0

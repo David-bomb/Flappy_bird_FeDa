@@ -5,7 +5,7 @@ import pygame
 image = load_image("game-over-insert-coins.gif")
 image = pygame.transform.scale(image, (800, 500))
 
-
+'''Класс game over, который создает картинку game over'''
 class Game_over(pygame.sprite.Sprite):
     def __init__(self):
         super().__init__(sprites_gameover)
@@ -22,7 +22,7 @@ class Game_over(pygame.sprite.Sprite):
         elif self.rect.x != 0:
             self.rect.x += 15
 
-    def puk(self):
+    def puk(self): # Функция, которая показывает полностью выехала картинка или нет
         return self.b
 
 game_over = Game_over()
