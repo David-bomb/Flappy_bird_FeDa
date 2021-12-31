@@ -1,6 +1,6 @@
 import pygame
 from initial import perv_etap, vtor_etap, tret_etap
-from initial import chet_etap, sprites_games, sprites_games1
+from initial import sprites_games
 from initial import y
 
 
@@ -10,25 +10,15 @@ class Bird(pygame.sprite.Sprite):
         self.image = perv_etap
         self.mask = pygame.mask.from_surface(self.image)
         self.rect = self.image.get_rect()
+        self.rect.x = 100
         self.y = y
         self.k = 0
-        self.last_image = None
+        self.slovar = {0: perv_etap, 4: vtor_etap, 8: tret_etap}
 
     def update(self, y):
-        if self.k & 12 == 0:
-            self.image = perv_etap
-            self.mask = pygame.mask.from_surface(self.image)
-        elif self.k & 12 == 4:
-            self.image = vtor_etap
-            self.mask = pygame.mask.from_surface(self.image)
-        elif self.k & 12 == 8:
-            self.image = tret_etap
-            self.mask = pygame.mask.from_surface(self.image)
-        elif self.k & 16 == 11:
-            self.image = chet_etap
-            self.mask = pygame.mask.from_surface(self.image)
+        if self.k % 12 in self.slovar:
+            self.image = self.slovar[self.k % 12]
         self.k += 1
-        self.rect.x = 230
         self.rect.y = y
 
 bird = Bird(y)

@@ -4,7 +4,7 @@ import sys
 from Sostoyaniye import Sostoyaniye
 
 
-def load_image(name, colorkey=None):
+def load_image(name):
     fullname = os.path.join('data', name)
     # если файл не существует, то выходим
     if not os.path.isfile(fullname):
@@ -22,7 +22,6 @@ sprites_games2 = pygame.sprite.Group()
 
 sprites_gameover = pygame.sprite.Group()
 # создадим спрайт
-sprite = pygame.sprite.Sprite()
 
 sostoyanie = Sostoyaniye()
 
@@ -30,11 +29,11 @@ perv_etap = load_image('524.png')
 vtor_etap = load_image('525.png')
 tret_etap = load_image('526.png')
 chet_etap = load_image('527.png')
-tube = load_image('tube_huuuuge.png')
-tube_1 = pygame.transform.scale(tube, (500, 2000))
+tube = load_image('tube_huuuuge2.png')
+tube_1 = pygame.transform.scale(tube, (500, 800))
 
 y = 350
 t = 0
-g = 9.8
+g = 5
 v = 0
 k = 0
