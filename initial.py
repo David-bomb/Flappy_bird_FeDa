@@ -28,11 +28,11 @@ sostoyanie = Sostoyaniye()
 perv_etap = load_image('524.png')
 vtor_etap = load_image('525.png')
 tret_etap = load_image('526.png')
-chet_etap = load_image('527.png')
+
 perv_etap = pygame.transform.scale(perv_etap, (50, 42))
 vtor_etap = pygame.transform.scale(vtor_etap, (50, 42))
 tret_etap = pygame.transform.scale(tret_etap, (50, 42))
-chet_etap = pygame.transform.scale(chet_etap, (50, 42))
+
 tube = load_image('tube_huuuuge2.png')
 tube_1 = pygame.transform.scale(tube, (500, 800))
 
