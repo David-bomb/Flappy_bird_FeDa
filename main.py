@@ -18,7 +18,7 @@ def randint1(a, b):
 '''----------Создаем холст----------'''
 
 pygame.init()
-size = width, height = 600, 500
+size = width, height = 400, 500
 screen = pygame.display.set_mode(size)
 background = pygame.Surface(size)
 pygame.display.set_caption('Flappy bird')
@@ -29,13 +29,9 @@ clock = pygame.time.Clock()
 
 '''Создаю координаты для текстур'''
 y1 = randint(-302, 3)
-y2 = randint1(y1 - 150, y1 + 150)
-y4 = randint1(y2 - 150, y2 + 150)
 
 '''Создаю четыре текстуры, чтоб они занимали весь экран'''
-perv_stena = Walls(y1, 600)
-vtor_stena = Walls(y2, 850)
-chet_stena = Walls(y4, 1100)
+perv_stena = Walls(y1, 200)
 
 vniz = True
 
@@ -48,10 +44,8 @@ while running:
             running = False
         if event.type == pygame.KEYDOWN and event.key == pygame.K_SPACE and status[1]:
             vniz = False
-            t = 17
             g = 5
             v = 10
-
         if event.type == pygame.MOUSEBUTTONDOWN and status[0]:
             pass
     if status[0]:
@@ -59,11 +53,10 @@ while running:
     elif status[1]:
         if vniz:
             y += g
-            g += 0.2
+            g += 0.1
         elif t >= 0:
-            v -= 1
+            v -= 0.9
             y -= v
-            t -= 1
         else:
             vniz = True
         screen.fill((100, 100, 100))
@@ -73,19 +66,10 @@ while running:
         sprites_games1.update()
 
         if perv_stena.walls():
-            mas = [perv_stena, vtor_stena, chet_stena]
-            mas1 = []
-            for i in range(3):
-                mas1.append(mas[i].coord())
-                sprites_games1.remove(mas[i])
-
-            perv_stena = Walls(mas1[1][1], mas1[1][0])
-            vtor_stena = Walls(mas1[2][1], mas1[2][0])
-            igirik = randint1(mas1[2][1] - 150, mas1[2][1] + 150)
-            chet_stena = Walls(igirik, mas1[2][0] + 250)
-
-
-    if status[2]:
+            perv = perv_stena.coord()
+            sprites_games1.remove(perv_stena)
+            perv_stena = Walls(randint(-302, 3), 180)
+    elif status[2]:
         screen.fill((0, 0, 0))
         sprites_gameover.draw(screen)
         sprites_gameover.update()
