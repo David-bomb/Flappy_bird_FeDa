@@ -1,11 +1,9 @@
 import pygame
 import os
 import sys
+from Sostoyaniye import Sostoyaniye
 
-
-'''-----Функция для загрузки фото-----'''
-
-def load_image(name, colorkey=None):
+def load_image(name):
     fullname = os.path.join('data', name)
     # если файл не существует, то выходим
     if not os.path.isfile(fullname):
@@ -15,15 +13,30 @@ def load_image(name, colorkey=None):
     return image
 
 
-'''-----Создаем все нужные спрайт-группы-----'''
-
 sprites_lobby = pygame.sprite.Group()
-sprites_games = pygame.sprite.Group()
-sprite = pygame.sprite.Sprite()
 
-'''-----Загружаем фотографии-----'''
+sprites_games = pygame.sprite.Group()
+sprites_games1 = pygame.sprite.Group()
+sprites_games2 = pygame.sprite.Group()
+
+sprites_gameover = pygame.sprite.Group()
+# создадим спрайт
+
+sostoyanie = Sostoyaniye()
 
 perv_etap = load_image('524.png')
 vtor_etap = load_image('525.png')
 tret_etap = load_image('526.png')
-chet_etap = load_image('527.png')
+
+perv_etap = pygame.transform.scale(perv_etap, (50, 42))
+vtor_etap = pygame.transform.scale(vtor_etap, (50, 42))
+tret_etap = pygame.transform.scale(tret_etap, (50, 42))
+
+tube = load_image('tube_huuuuge2.png')
+tube_1 = pygame.transform.scale(tube, (500, 800))
+
+y = 350
+t = 0
+g = 5
+v = 0
+k = 0
