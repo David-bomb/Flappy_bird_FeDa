@@ -2,7 +2,7 @@ import pygame
 from Game_Over import game_over
 from initial import sprites_games, sprites_games1, sostoyanie, sprites_gameover, t, g, v, y
 from walls import Walls
-from random import randint
+from random import  randint
 import time
 
 '''Создаю функцию выбора рандомных к   оординат, чтоб трубы не выходили за пределы экрана'''

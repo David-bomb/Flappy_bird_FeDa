@@ -2,9 +2,7 @@ import pygame
 from initial import sprites_games, tube_1, sprites_games1, sostoyanie
 from Bird import bird
 from Sostoyaniye import Sostoyaniye
-from borders import Border
 
-left_border = Border(0, 0, 10, 500)
 
 class Walls(pygame.sprite.Sprite):
     def __init__(self, y, x):
