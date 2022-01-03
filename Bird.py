@@ -2,6 +2,9 @@ import pygame
 from initial import perv_etap, vtor_etap, tret_etap
 from initial import sprites_games
 from initial import y
+from Sostoyaniye import Sostoyaniye
+from Game_Over import game_over
+sostoyanie = Sostoyaniye()
 
 
 class Bird(pygame.sprite.Sprite):
@@ -18,6 +21,8 @@ class Bird(pygame.sprite.Sprite):
     def update(self, y):
         if self.k % 12 in self.slovar:
             self.image = self.slovar[self.k % 12]
+        if self.y == 0:
+            sostoyanie.set('Уровни')
         self.k += 1
         self.rect.y = y
 

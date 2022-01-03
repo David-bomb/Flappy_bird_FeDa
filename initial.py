@@ -2,7 +2,6 @@ import pygame
 import os
 import sys
 from Sostoyaniye import Sostoyaniye
-import numpy as np
 
 def load_image(name):
     fullname = os.path.join('data', name)

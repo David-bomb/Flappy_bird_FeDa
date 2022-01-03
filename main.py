@@ -6,6 +6,8 @@ from random import randint
 import time
 
 '''Создаю функцию выбора рандомных к   оординат, чтоб трубы не выходили за пределы экрана'''
+
+
 def randint1(a, b):
     x = randint(a, b)
     if x >= 3:
@@ -49,7 +51,7 @@ while running:
         if event.type == pygame.MOUSEBUTTONDOWN and status[0]:
             pass
     if status[0]:
-        screen.fill((255, 255,  255))
+        screen.fill((255, 255, 255))
     elif status[1]:
         if vniz:
             y += g
@@ -75,7 +77,9 @@ while running:
         sprites_gameover.update()
         if not game_over.puk():  # Когда картинка game_over целиком вылезла проходит секунда и открывается главное меню (Лобби)
             time.sleep(1)
-            sostoyanie.set('Лобби')
+            sostoyanie.set('Уровни')
+    if y <= 0 or y >= 495:
+        sostoyanie.set('Уровни')
     pygame.display.flip()
     clock.tick(60)
 pygame.quit()

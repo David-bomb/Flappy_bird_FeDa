@@ -2,8 +2,8 @@ from initial import sprites_gameover
 from initial import load_image
 import pygame
 
-image = load_image("game-over-insert-coins.gif")
-image = pygame.transform.scale(image, (600, 500))
+image = load_image("gameover.jpg")
+image = pygame.transform.scale(image, (400, 500))
 
 
 class Game_over(pygame.sprite.Sprite):
