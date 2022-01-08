@@ -2,6 +2,7 @@ import pygame
 import os
 import sys
 from Sostoyaniye import Sostoyaniye
+pygame.font.init()
 
 def load_image(name):
     fullname = os.path.join('data', name)
@@ -34,6 +35,8 @@ tret_etap = pygame.transform.scale(tret_etap, (50, 42))
 
 tube = load_image('tube_huuuuge2.png')
 tube_1 = pygame.transform.scale(tube, (500, 800))
+
+comic_sans_font = pygame.font.SysFont('Fonts/Comic Sans MS.ttf', 40)
 
 y = 350
 t = 0
