@@ -1,27 +1,35 @@
 import pygame
-from initial import comic_sans_font
+from initial import comic_sans_font, start_screen
 from random import randint
 from Menu import Menu
 from game import run_game
-'''Создаю функцию выбора рандомных координат, чтоб трубы не выходили за пределы экрана'''
-
-
-
 
 
 '''----------Создаем холст----------'''
-
 pygame.init()
 size = width, height = 400, 500
 screen = pygame.display.set_mode(size)
 background = pygame.Surface(size)
 pygame.display.set_caption('Flappy bird')
-running = True
+# Создание меню
 menu = Menu()
-menu.append_option('Play', lambda: run_game(screen))
-menu.append_option('Что-то еще', lambda: print('ПАУ'))
-menu.append_option('QUIT', lambda: quit())
+menu.append_option('Аркада', lambda: run_game(screen))
+menu.append_option('Уровни', lambda: print('WIP'))
+menu.append_option('Выйти', lambda: quit())
+# Запуск заставки
+run1 = True
+running = True
+start_screen(screen)
+while run1:
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT:
+            quit()
+        elif event.type == pygame.KEYDOWN or \
+                event.type == pygame.MOUSEBUTTONDOWN:
+            run1 = False
 
+
+# Запуск меню
 while running:
     for i in pygame.event.get():
         if i.type == pygame.QUIT:

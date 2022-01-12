@@ -22,7 +22,7 @@ class Game_over(pygame.sprite.Sprite):
         else:
             self.rect.x += 15
 
-    def puk(self):  # Функция, которая показывает полностью выехала картинка или нет
+    def gameover_check(self):  # Функция, которая показывает полностью выехала картинка или нет
         return self.b
 
 

@@ -4,7 +4,7 @@ from random import randint
 from walls import Walls
 import time
 from Game_Over import game_over
-from initial import sprites_games, sprites_games1, sostoyanie, sprites_gameover, t, g, v, y
+from initial import sprites_games, sprites_games1, sostoyanie, sprites_gameover, t, g, v, y, bg
 
 '''----------Основной игровой цикл----------'''
 
@@ -40,6 +40,7 @@ def run_game(screen):
             else:
                 vniz = True
             screen.fill((100, 100, 100))
+            screen.blit(bg, (0, 0))
             sprites_games.draw(screen)
             sprites_games.update(y)
             sprites_games1.draw(screen)
@@ -53,7 +54,8 @@ def run_game(screen):
             screen.fill((0, 0, 0))
             sprites_gameover.draw(screen)
             sprites_gameover.update()
-            if not game_over.puk():  # Когда картинка game_over целиком вылезла проходит секунда и открывается главное меню (Лобби)
+            if not game_over.gameover_check():
+                # Когда картинка game_over целиком вылезла проходит секунда и открывается главное меню (Лобби)
                 time.sleep(1)
                 sostoyanie.set('Уровни')
         if y <= 0 or y >= 495:

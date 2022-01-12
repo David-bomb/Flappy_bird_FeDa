@@ -18,7 +18,7 @@ class Menu:  # инициализация меню
     def select(self):  # Выбор функции
         self.callbacks[self.selected]()
 
-    def draw(self, place, x, y, padding):
+    def draw(self, place, x, y, padding):  # Отрисовка меню
         for i, opt in enumerate(self.strings):
             opt_rect = opt.get_rect()
             opt_rect.topleft = (x, y + i * padding)

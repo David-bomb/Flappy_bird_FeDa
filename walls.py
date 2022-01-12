@@ -26,11 +26,11 @@ class Walls(pygame.sprite.Sprite):
             self.rect.x = self.x
             self.x -= 2
 
-    def walls(self): # показывает ушла ли труба за пределы экрана
+    def walls(self):  # показывает ушла ли труба за пределы экрана
         if self.nov:
             self.nov = False
             return True
         return False
 
-    def coord(self): # выводит координаты трубы
+    def coord(self):  # выводит координаты трубы
         return [self.rect.x, self.rect.y]
