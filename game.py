@@ -13,7 +13,7 @@ def run_game(screen):
     global g, v, y
     clock = pygame.time.Clock()
     running = True
-    vniz = True
+    fall = True
     sostoyanie.set('Игра')
     y1 = randint(-302, 3)
     perv_stena = Walls(y1, 200)
@@ -23,7 +23,7 @@ def run_game(screen):
             if event.type == pygame.QUIT:
                 running = False
             if event.type == pygame.KEYDOWN and event.key == pygame.K_SPACE and status[1]:
-                vniz = False
+                fall = False
                 g = 5
                 v = 10
             if event.type == pygame.MOUSEBUTTONDOWN and status[0]:
@@ -31,14 +31,14 @@ def run_game(screen):
         if status[0]:
             screen.fill((255, 255, 255))
         elif status[1]:
-            if vniz:
+            if fall:
                 y += g
                 g += 0.1
             elif t >= 0:
                 v -= 0.9
                 y -= v
             else:
-                vniz = True
+                fall = True
             screen.fill((100, 100, 100))
             screen.blit(bg, (0, 0))
             sprites_games.draw(screen)
