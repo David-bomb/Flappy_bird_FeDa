@@ -3,7 +3,7 @@ from initial import load_image
 import pygame
 
 image = load_image("gameover.jpg")
-image = pygame.transform.scale(image, (400, 500))
+image = pygame.transform.scale(image, (450, 500))
 
 
 class Game_over(pygame.sprite.Sprite):
@@ -19,11 +19,16 @@ class Game_over(pygame.sprite.Sprite):
         if self.rect.x >= 0 and self.b:
             self.b = False
             self.rect.x = 0
+        elif not self.b:
+            self.rect.x = 0
         else:
             self.rect.x += 15
 
     def gameover_check(self):  # Функция, которая показывает полностью выехала картинка или нет
         return self.b
+
+    def jk(self):
+        self.rect.x = -800
 
 
 game_over = Game_over()

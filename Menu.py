@@ -1,6 +1,7 @@
 import pygame
-from initial import comic_sans_font
 
+pygame.font.init()
+comic_sans_font = pygame.font.SysFont('Fonts/Comic Sans MS.ttf', 40)
 
 class Menu:  # инициализация меню
     def __init__(self):
@@ -25,3 +26,6 @@ class Menu:  # инициализация меню
             if i == self.selected:
                 pygame.draw.rect(place, (100, 100, 100), opt_rect)
             place.blit(opt, opt_rect)
+
+    def __dir__(self):
+        return self.callbacks
