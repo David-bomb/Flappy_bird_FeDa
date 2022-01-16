@@ -1,7 +1,9 @@
 import pygame
-from initial import sprites_games, tube_1, sprites_games1, sostoyanie
+from initial import sprites_games, tube_1, sprites_games1, sostoyanie, schet
 from Bird import bird
 from Sostoyaniye import Sostoyaniye
+
+global schet
 
 
 class Walls(pygame.sprite.Sprite):
@@ -31,6 +33,9 @@ class Walls(pygame.sprite.Sprite):
             self.nov = False
             return True
         return False
+
+    def der(self):
+        self.nov = False
 
     def coord(self):  # выводит координаты трубы
         return [self.rect.x, self.rect.y]

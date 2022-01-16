@@ -5,7 +5,7 @@ from walls import Walls
 import time
 from Menu import Menu
 from Game_Over import game_over
-from initial import sprites_games, sprites_games1, sostoyanie, sprites_gameover, t, g, v, y, bg, load_image, screen
+from initial import sprites_games, sprites_games1, sostoyanie, sprites_gameover, t, g, v, y, bg, load_image, screen, schet
 from Menu import comic_sans_font
 
 '''----------Основной игровой цикл----------'''
@@ -25,7 +25,7 @@ def start_screen(screen):  # функция создания заставки
     screen.blit(fon, (0, 0))
     text_coord = 50
     for line in intro_text:
-        string_rendered = comic_sans_font.render(line, 1, pygame.Color('#00BFFF'))
+        string_rendered = comic_sans_font.render(line, 1, pygame.Color('yellow'))
         intro_rect = string_rendered.get_rect()
         text_coord += 10
         intro_rect.top = text_coord
@@ -36,11 +36,10 @@ def start_screen(screen):  # функция создания заставки
 pygame.font.init()
 comic_sans_font = pygame.font.SysFont('Fonts/Comic Sans MS.ttf', 40)
 text2 = comic_sans_font.render("", False, (0, 0, 0))
+global schet
 def run_game(screen):
-    schet = 0
     pygame.font.init()
     comic_sans_font = pygame.font.SysFont('Fonts/Comic Sans MS.ttf', 40)
-    text2 = comic_sans_font.render(f"{schet}", False, (0, 0, 0))
     menu = Menu()
     menu.append_option('Аркада', lambda: sostoyanie.set('Игра'))
     menu.append_option('Уровни', lambda: print('WIP'))
@@ -67,9 +66,9 @@ def run_game(screen):
                 perv_stena = Walls(randint(-302, 3), 250)
                 game_over.jk()
             elif event.type == pygame.KEYDOWN and status[0]:
-                if event.key == pygame.K_s:
+                if event.key == pygame.K_DOWN or event.key == pygame.K_w:
                     menu.switch(1)
-                if event.key == pygame.K_w:
+                if event.key == pygame.K_UP or event.key == pygame.K_s:
                     menu.switch(-1)
                 if event.key == pygame.K_SPACE:
                     menu.select()
@@ -80,6 +79,15 @@ def run_game(screen):
         if status[0]:
             screen.fill((0, 0, 0))
             menu.draw(screen, 100, 100, 75)
+            f = open("рекорд.txt", mode="r")
+            a = f.readlines()
+            sc = str(a[0]).replace('\n', '')
+            rec = str(a[1])
+            f.close()
+            sc = comic_sans_font.render(f"Последний результат: {sc}", False, (255, 255, 0))
+            rec = comic_sans_font.render(f"Рекорд: {rec}", False, (255, 255, 0))
+            screen.blit(sc, (75, 400))
+            screen.blit(rec, (150, 450))
             pygame.display.flip()
         elif status[1]:
             if fall:
@@ -96,18 +104,31 @@ def run_game(screen):
             sprites_games.update(y)
             sprites_games1.draw(screen)
             sprites_games1.update()
-            text2 = comic_sans_font.render(f"{schet}", False, (255, 255, 255))
-            screen.blit(text2, (220, 50))
+            text2 = comic_sans_font.render(f"SCORE", False, (255, 255, 255))
+            text3 = comic_sans_font.render(f"{schet}", False, (255, 255, 255))
+            screen.blit(text2, (20, 20))
+            screen.blit(text3, (20, 50))
             if perv_stena.walls():
                 sprites_games1.remove(perv_stena)
                 perv_stena = Walls(randint(-302, 3), 250)
             if perv_stena.coord()[0] == -100:
                 schet += 1
+                f = open("рекорд.txt", mode="r")
+                record = str(f.readlines()[1]).replace("b' ", '').replace("'", '')
+                f.seek(0)
+                f.close()
+                f = open("рекорд.txt", mode="w")
+                f.write(str(schet) + '\n', )
+                if int(record) < schet:
+                    f.write(str(schet))
+                else:
+                    f.write(str(record))
+                f.close()
+            if y < 0 or y >= 495:
+                sostoyanie.set('Уровни')
         elif status[2]:
             screen.fill((0, 0, 0))
             sprites_gameover.draw(screen)
             sprites_gameover.update()
-        if y < 0 or y >= 495:
-            sostoyanie.set('Уровни')
         pygame.display.flip()
         clock.tick(60)

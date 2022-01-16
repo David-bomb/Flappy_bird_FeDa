@@ -18,6 +18,15 @@ class Menu:  # инициализация меню
 
     def select(self):  # Выбор функции
         self.callbacks[self.selected]()
+        if self.selected == 0:
+            f = open("рекорд.txt", mode="r")
+            record = str(f.readlines()[1]).replace("b' ", '').replace("'", '')
+            f.seek(0)
+            f.close()
+            f = open("рекорд.txt", mode="w")
+            f.write(str(0) + '\n')
+            f.write(str(record))
+            f.close()
 
     def draw(self, place, x, y, padding):  # Отрисовка меню
         for i, opt in enumerate(self.strings):

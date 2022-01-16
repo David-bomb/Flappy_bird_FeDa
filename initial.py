@@ -2,7 +2,6 @@ import pygame
 import os
 import sys
 from Sostoyaniye import Sostoyaniye
-from Menu import Menu, comic_sans_font
 from random import randint
 
 pygame.font.init()
@@ -41,7 +40,8 @@ bg = pygame.transform.scale(bg, (450, 500))
 perv_etap = load_image('524.png')
 vtor_etap = load_image('525.png')
 tret_etap = load_image('526.png')
-
+global schet
+schet = 0
 perv_etap = pygame.transform.scale(perv_etap, (50, 42))
 vtor_etap = pygame.transform.scale(vtor_etap, (50, 42))
 tret_etap = pygame.transform.scale(tret_etap, (50, 42))
