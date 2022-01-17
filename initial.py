@@ -28,7 +28,6 @@ sprites_games = pygame.sprite.Group()
 sprites_games1 = pygame.sprite.Group()
 sprites_games2 = pygame.sprite.Group()
 
-global sprites_gameover
 sprites_gameover = pygame.sprite.Group()
 # создадим спрайт
 
@@ -40,7 +39,6 @@ bg = pygame.transform.scale(bg, (450, 500))
 perv_etap = load_image('524.png')
 vtor_etap = load_image('525.png')
 tret_etap = load_image('526.png')
-global schet
 schet = 0
 perv_etap = pygame.transform.scale(perv_etap, (50, 42))
 vtor_etap = pygame.transform.scale(vtor_etap, (50, 42))
@@ -48,6 +46,13 @@ tret_etap = pygame.transform.scale(tret_etap, (50, 42))
 
 tube = load_image('tube_huuuuge2.png')
 tube_1 = pygame.transform.scale(tube, (500, 800))
+
+jump = pygame.mixer.Sound("sounds/jump.ogg")
+punch = pygame.mixer.Sound('sounds/punch.ogg')
+tube_complete = pygame.mixer.Sound('sounds/tube_complete.ogg')
+press = pygame.mixer.Sound('sounds/btn_pressed.ogg')
+lose = pygame.mixer.Sound('sounds/lose.ogg')
+victory = pygame.mixer.Sound('sounds/victory.ogg')
 
 # Физические константы
 y = 0

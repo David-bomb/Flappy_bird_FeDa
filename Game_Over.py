@@ -4,6 +4,8 @@ import pygame
 
 image = load_image("gameover.jpg")
 image = pygame.transform.scale(image, (450, 500))
+image_victory = load_image("victory.png")
+image_victory = pygame.transform.scale(image_victory, (450, 500))
 
 
 class Game_over(pygame.sprite.Sprite):
@@ -15,19 +17,30 @@ class Game_over(pygame.sprite.Sprite):
         self.rect.x = -800
         self.b = True
 
-    def update(self):
-        if self.rect.x >= 0 and self.b:
-            self.b = False
-            self.rect.x = 0
-        elif not self.b:
-            self.rect.x = 0
+    def update(self, victory=0):
+        if victory == 100:
+            self.image = image_victory
+            if self.rect.x >= 0 and self.b:
+                self.b = False
+                self.rect.x = 0
+            elif not self.b:
+                self.rect.x = 0
+            else:
+                self.rect.x += 15
         else:
-            self.rect.x += 15
+            self.image = image
+            if self.rect.x >= 0 and self.b:
+                self.b = False
+                self.rect.x = 0
+            elif not self.b:
+                self.rect.x = 0
+            else:
+                self.rect.x += 15
 
     def gameover_check(self):  # Функция, которая показывает полностью выехала картинка или нет
         return self.b
 
-    def jk(self):
+    def pos(self):
         self.rect.x = -800
 
 

@@ -1,7 +1,7 @@
 import pygame
 
 pygame.font.init()
-comic_sans_font = pygame.font.SysFont('Fonts/Comic Sans MS.ttf', 40)
+comic_sans_font = pygame.font.Font('Fonts/Comic Sans MS.ttf', 30)
 
 class Menu:  # инициализация меню
     def __init__(self):
@@ -10,7 +10,7 @@ class Menu:  # инициализация меню
         self.selected = 0  # Номер выбранной опции
 
     def append_option(self, option, callback):  # Функция добавления опции
-        self.strings.append(comic_sans_font.render(option, True, 'yellow'))
+        self.strings.append(comic_sans_font.render(option, True, '#ffef14'))
         self.callbacks.append(callback)
 
     def switch(self, direction):  # Функция смены опции

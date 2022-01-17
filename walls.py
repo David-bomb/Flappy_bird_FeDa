@@ -1,5 +1,5 @@
 import pygame
-from initial import sprites_games, tube_1, sprites_games1, sostoyanie, schet
+from initial import sprites_games, tube_1, sprites_games1, sostoyanie, punch, lose
 from Bird import bird
 from Sostoyaniye import Sostoyaniye
 
@@ -21,6 +21,8 @@ class Walls(pygame.sprite.Sprite):
     def update(self):
         # Реализация столкновений
         if pygame.sprite.collide_mask(self, bird):
+            punch.play()
+            lose.play()
             sostoyanie.set('Уровни')
         elif self.rect.x <= -280:
             self.nov = True

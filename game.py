@@ -2,11 +2,12 @@ from Sostoyaniye import Sostoyaniye
 import pygame
 from random import randint
 from walls import Walls
-import time
 from Menu import Menu
 from Game_Over import game_over
-from initial import sprites_games, sprites_games1, sostoyanie, sprites_gameover, t, g, v, y, bg, load_image, screen, schet
+from initial import sprites_games, sprites_games1, sostoyanie, sprites_gameover, t, bg, load_image, jump, punch, \
+    tube_complete, press, lose
 from Menu import comic_sans_font
+import levels_menu
 
 '''----------Основной игровой цикл----------'''
 
@@ -15,7 +16,7 @@ def start_screen(screen):  # функция создания заставки
     intro_text = ["Доведи птицу до ее офиса", "",
                   "Но помни, что она",
                   "Должна миновать небоскребы!",
-                  "Space - прыжок/взамодействие",
+                  "Space - прыжок/действие",
                   "w - подняться на 1 в меню",
                   "s - спуститься на 1 в меню",
                   "НАЖМИТЕ ЛЮБУЮ КНОПКУ"]
@@ -25,7 +26,7 @@ def start_screen(screen):  # функция создания заставки
     screen.blit(fon, (0, 0))
     text_coord = 50
     for line in intro_text:
-        string_rendered = comic_sans_font.render(line, 1, pygame.Color('yellow'))
+        string_rendered = comic_sans_font.render(line, 1, pygame.Color('#ffef14'))
         intro_rect = string_rendered.get_rect()
         text_coord += 10
         intro_rect.top = text_coord
@@ -33,51 +34,57 @@ def start_screen(screen):  # функция создания заставки
         text_coord += intro_rect.height
         screen.blit(string_rendered, intro_rect)
 
-pygame.font.init()
-comic_sans_font = pygame.font.SysFont('Fonts/Comic Sans MS.ttf', 40)
 text2 = comic_sans_font.render("", False, (0, 0, 0))
 global schet
+global y1, perv_stena
+global status
+
+
 def run_game(screen):
+    pygame.mixer.music.load('sounds/game_theme.ogg')
+    pygame.mixer.music.play(loops=0, start=0.0, fade_ms=0)
+    sprites_games1.empty()
+    y1 = randint(-302, 3)
+    perv_stena = Walls(y1, 250)
     pygame.font.init()
-    comic_sans_font = pygame.font.SysFont('Fonts/Comic Sans MS.ttf', 40)
     menu = Menu()
     menu.append_option('Аркада', lambda: sostoyanie.set('Игра'))
-    menu.append_option('Уровни', lambda: print('WIP'))
+    menu.append_option('Уровни', lambda: levels_menu.start_menu(screen))
     menu.append_option('Выйти', lambda: quit())
     global g, v, y
     clock = pygame.time.Clock()
     running = True
     fall = True
     sostoyanie.set('Лобби')
-    y1 = randint(-302, 3)
-    perv_stena = Walls(y1, 250)
     while running:
         status = sostoyanie.sost()
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
-                running = False
+                quit()
             elif event.type == pygame.KEYDOWN and event.key == pygame.K_SPACE and status[1]:
+                jump.play()
                 fall = False
                 g = 5
                 v = 10
-            elif event.type == pygame.KEYDOWN and status[2]:
+            elif event.type == pygame.KEYDOWN and not event.key == pygame.K_SPACE and status[2]:
                 sostoyanie.set('Лобби')
-                sprites_games1.remove(perv_stena)
+                sprites_games1.empty()
                 perv_stena = Walls(randint(-302, 3), 250)
-                game_over.jk()
+                game_over.pos()
             elif event.type == pygame.KEYDOWN and status[0]:
-                if event.key == pygame.K_DOWN or event.key == pygame.K_w:
+                if event.key == pygame.K_DOWN or event.key == pygame.K_s:
                     menu.switch(1)
-                if event.key == pygame.K_UP or event.key == pygame.K_s:
+                if event.key == pygame.K_UP or event.key == pygame.K_w:
                     menu.switch(-1)
                 if event.key == pygame.K_SPACE:
+                    press.play()
                     menu.select()
                     y = 1
                     g = 5
                     v = 0
                     schet = 0
         if status[0]:
-            screen.fill((0, 0, 0))
+            screen.blit(bg, (0, 0))
             menu.draw(screen, 100, 100, 75)
             f = open("рекорд.txt", mode="r")
             a = f.readlines()
@@ -104,15 +111,14 @@ def run_game(screen):
             sprites_games.update(y)
             sprites_games1.draw(screen)
             sprites_games1.update()
-            text2 = comic_sans_font.render(f"SCORE", False, (255, 255, 255))
-            text3 = comic_sans_font.render(f"{schet}", False, (255, 255, 255))
+            text2 = comic_sans_font.render(f"SCORE: {schet}", False, (255, 255, 255))
             screen.blit(text2, (20, 20))
-            screen.blit(text3, (20, 50))
             if perv_stena.walls():
-                sprites_games1.remove(perv_stena)
+                sprites_games1.empty()
                 perv_stena = Walls(randint(-302, 3), 250)
             if perv_stena.coord()[0] == -100:
                 schet += 1
+                tube_complete.play()
                 f = open("рекорд.txt", mode="r")
                 record = str(f.readlines()[1]).replace("b' ", '').replace("'", '')
                 f.seek(0)
@@ -126,9 +132,13 @@ def run_game(screen):
                 f.close()
             if y < 0 or y >= 495:
                 sostoyanie.set('Уровни')
+                punch.play()
+                lose.play()
         elif status[2]:
             screen.fill((0, 0, 0))
             sprites_gameover.draw(screen)
             sprites_gameover.update()
+            any_button = comic_sans_font.render(f"Press any key", False, (255, 255, 0))
+            screen.blit(any_button, (125, 450))
         pygame.display.flip()
         clock.tick(60)
