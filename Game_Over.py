@@ -27,7 +27,7 @@ class Game_over(pygame.sprite.Sprite):
     def gameover_check(self):  # Функция, которая показывает полностью выехала картинка или нет
         return self.b
 
-    def jk(self):
+    def pos(self):
         self.rect.x = -800
 
 
