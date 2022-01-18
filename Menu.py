@@ -3,6 +3,7 @@ import pygame
 pygame.font.init()
 comic_sans_font = pygame.font.Font('Fonts/Comic Sans MS.ttf', 30)
 
+
 class Menu:  # инициализация меню
     def __init__(self):
         self.strings = []  # Список строк

@@ -3,7 +3,6 @@ import pygame
 from initial import bg, press
 import level_function
 import game
-
 pygame.init()
 pygame.font.init()
 

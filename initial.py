@@ -11,6 +11,7 @@ screen = pygame.display.set_mode(size)
 background = pygame.Surface(size)
 pygame.display.set_caption('Flappy bird')
 
+
 def load_image(name):  # функция подгрузки картинок
     fullname = os.path.join('data', name)
     # если файл не существует, то выходим

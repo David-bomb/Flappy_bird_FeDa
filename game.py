@@ -8,6 +8,10 @@ from initial import sprites_games, sprites_games1, sostoyanie, sprites_gameover,
     tube_complete, press, lose
 from Menu import comic_sans_font
 import levels_menu
+from initial import sprites_games, sprites_games1, sostoyanie, sprites_gameover, t, bg, load_image,\
+    jump, punch, tube_complete, press, lose
+from Menu import comic_sans_font
+from levels_menu import start_menu
 
 '''----------Основной игровой цикл----------'''
 
@@ -39,6 +43,9 @@ global schet
 global y1, perv_stena
 global status
 
+text2 = comic_sans_font.render("", False, (0, 0, 0))
+global schet
+
 
 def run_game(screen):
     pygame.mixer.music.load('sounds/game_theme.ogg')
@@ -50,6 +57,10 @@ def run_game(screen):
     menu = Menu()
     menu.append_option('Аркада', lambda: sostoyanie.set('Игра'))
     menu.append_option('Уровни', lambda: levels_menu.start_menu(screen))
+    pygame.font.init()
+    menu = Menu()
+    menu.append_option('Аркада', lambda: sostoyanie.set('Игра'))
+    menu.append_option('Уровни', lambda: start_menu(screen))
     menu.append_option('Выйти', lambda: quit())
     global g, v, y
     clock = pygame.time.Clock()

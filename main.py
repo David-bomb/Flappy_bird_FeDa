@@ -6,7 +6,7 @@ from Menu import Menu
 from game import run_game
 from initial import bg, press
 
-'''----------Создаем холст----------'''
+'''----------Создаем холст---------'''
 # Запуск заставки
 run1 = True
 while run1:
