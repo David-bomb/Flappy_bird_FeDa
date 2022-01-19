@@ -6,7 +6,7 @@ from Menu import Menu
 from Game_Over import game_over
 import game
 from initial import sprites_games, sprites_games1, sostoyanie, sprites_gameover, t, bg, load_image, jump, punch, \
-    tube_complete, press, lose, v, y, g, screen
+    tube_complete, press, lose, v, y, g, screen, victory
 from Menu import comic_sans_font
 
 
@@ -32,6 +32,7 @@ def uroven1(levelok):
             if event.type == pygame.QUIT:
                 quit()
             elif event.type == pygame.KEYDOWN and event.key == pygame.K_SPACE and status[1]:
+                jump.play()
                 fall1 = False
                 g = 5
                 v = 10
@@ -69,11 +70,15 @@ def uroven1(levelok):
                     precent = 100
                 if schet1 < kolvo - 1:
                     schet1 += 1
+                    tube_complete.play()
                     precent = schet1 / kolvo * 100 // 1
             if precent == 100:
                 sostoyanie.set('Уровни')
+                victory.play()
             if y < 0 or y >= 495:
                 sostoyanie.set('Уровни')
+                punch.play()
+                lose.play()
         elif status[2]:
             if precent == 100:
                 screen.fill((0, 0, 0))

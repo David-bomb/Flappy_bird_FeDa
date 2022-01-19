@@ -15,7 +15,7 @@ class Menu:  # инициализация меню
         self.callbacks.append(callback)
 
     def switch(self, direction):  # Функция смены опции
-        self.selected = max(0, min(self.selected + direction, len(self.strings)))
+        self.selected = max(0, min(self.selected + direction, len(self.strings) - 1))
 
     def select(self):  # Выбор функции
         self.callbacks[self.selected]()

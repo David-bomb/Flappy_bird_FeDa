@@ -48,8 +48,6 @@ global schet
 
 
 def run_game(screen):
-    pygame.mixer.music.load('sounds/game_theme.ogg')
-    pygame.mixer.music.play(loops=0, start=0.0, fade_ms=0)
     sprites_games1.empty()
     y1 = randint(-302, 3)
     perv_stena = Walls(y1, 250)
