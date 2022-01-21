@@ -75,7 +75,7 @@ def run_game(screen):
                 fall = False
                 g = 5
                 v = 10
-            elif event.type == pygame.KEYDOWN and not event.key == pygame.K_SPACE and status[2]:
+            elif event.type == pygame.KEYDOWN and status[2]:
                 sostoyanie.set('Лобби')
                 sprites_games1.empty()
                 perv_stena = Walls(randint(-302, 3), 250)

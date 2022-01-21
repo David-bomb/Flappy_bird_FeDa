@@ -36,11 +36,11 @@ def uroven1(levelok):
                 fall1 = False
                 g = 5
                 v = 10
-            elif event.type == pygame.KEYDOWN and not event.key == pygame.K_SPACE and status[2]:
+            elif event.type == pygame.KEYDOWN and status[2]:
                 sprites_games1.empty()
                 perv_stena = Walls(randint(-302, 3), 250)
                 game_over.pos()
-                game.run_game(screen)
+                game.start_menu(screen)
         if status[1]:
             if fall1:
                 y += g
