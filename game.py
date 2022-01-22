@@ -73,7 +73,7 @@ def run_game(screen):
             elif event.type == pygame.KEYDOWN and event.key == pygame.K_SPACE and status[1]:
                 jump.play()
                 fall = False
-                g = 5
+                g = 10
                 v = 10
             elif event.type == pygame.KEYDOWN and status[2]:
                 sostoyanie.set('Лобби')

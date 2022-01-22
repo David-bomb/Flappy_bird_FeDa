@@ -34,7 +34,7 @@ def uroven1(levelok):
             elif event.type == pygame.KEYDOWN and event.key == pygame.K_SPACE and status[1]:
                 jump.play()
                 fall1 = False
-                g = 5
+                g = 10
                 v = 10
             elif event.type == pygame.KEYDOWN and status[2]:
                 sprites_games1.empty()
