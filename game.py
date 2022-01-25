@@ -1,14 +1,10 @@
-from Sostoyaniye import Sostoyaniye
+from Status import Status
 import pygame
 from random import randint
 from walls import Walls
 from Menu import Menu
 from Game_Over import game_over
-from initial import sprites_games, sprites_games1, sostoyanie, sprites_gameover, t, bg, load_image, jump, punch, \
-    tube_complete, press, lose
-from Menu import comic_sans_font
-import levels_menu
-from initial import sprites_games, sprites_games1, sostoyanie, sprites_gameover, t, bg, load_image,\
+from initial import sprites_games, sprites_games1, stat, sprites_gameover, t, bg, load_image, \
     jump, punch, tube_complete, press, lose
 from Menu import comic_sans_font
 from levels_menu import start_menu
@@ -26,8 +22,8 @@ def start_screen(screen):  # функция создания заставки
                   "НАЖМИТЕ ЛЮБУЮ КНОПКУ"]
 
     image = load_image('city.jpg')
-    fon = pygame.transform.scale(image, (450, 500))
-    screen.blit(fon, (0, 0))
+    bg = pygame.transform.scale(image, (450, 500))
+    screen.blit(bg, (0, 0))
     text_coord = 50
     for line in intro_text:
         string_rendered = comic_sans_font.render(line, 1, pygame.Color('#ffef14'))
@@ -38,49 +34,40 @@ def start_screen(screen):  # функция создания заставки
         text_coord += intro_rect.height
         screen.blit(string_rendered, intro_rect)
 
-text2 = comic_sans_font.render("", False, (0, 0, 0))
-global schet
-global y1, perv_stena
-global status
 
-text2 = comic_sans_font.render("", False, (0, 0, 0))
-global schet
-
-
-def run_game(screen):
+def run_game(screen):  # Функция запуска игры
+    # Инициализация меню и стартовых обьектов
     sprites_games1.empty()
     y1 = randint(-302, 3)
-    perv_stena = Walls(y1, 250)
+    wall1 = Walls(y1, 250)
+    pygame.font.init()
     pygame.font.init()
     menu = Menu()
-    menu.append_option('Аркада', lambda: sostoyanie.set('Игра'))
-    menu.append_option('Уровни', lambda: levels_menu.start_menu(screen))
-    pygame.font.init()
-    menu = Menu()
-    menu.append_option('Аркада', lambda: sostoyanie.set('Игра'))
+    menu.append_option('Аркада', lambda: stat.set('Игра'))
     menu.append_option('Уровни', lambda: start_menu(screen))
     menu.append_option('Выйти', lambda: quit())
     global g, v, y
     clock = pygame.time.Clock()
     running = True
     fall = True
-    sostoyanie.set('Лобби')
+    stat.set('Лобби')
     while running:
-        status = sostoyanie.sost()
+        status = stat.sost()
         for event in pygame.event.get():
-            if event.type == pygame.QUIT:
+            #  Бинд кнопок
+            if event.type == pygame.QUIT:  # Выход
                 quit()
-            elif event.type == pygame.KEYDOWN and event.key == pygame.K_SPACE and status[1]:
+            elif event.type == pygame.KEYDOWN and event.key == pygame.K_SPACE and status[1]:  # Прыжок
                 jump.play()
                 fall = False
                 g = 10
                 v = 10
-            elif event.type == pygame.KEYDOWN and status[2]:
-                sostoyanie.set('Лобби')
+            elif event.type == pygame.KEYDOWN and status[2]:  # Выход из окна game_over
+                stat.set('Лобби')
                 sprites_games1.empty()
-                perv_stena = Walls(randint(-302, 3), 250)
+                wall1 = Walls(randint(-302, 3), 250)
                 game_over.pos()
-            elif event.type == pygame.KEYDOWN and status[0]:
+            elif event.type == pygame.KEYDOWN and status[0]:  # Переключение между пунктами меню
                 if event.key == pygame.K_DOWN or event.key == pygame.K_s:
                     menu.switch(1)
                 if event.key == pygame.K_UP or event.key == pygame.K_w:
@@ -91,21 +78,22 @@ def run_game(screen):
                     y = 1
                     g = 5
                     v = 0
-                    schet = 0
-        if status[0]:
+                    count = 0
+        if status[0]:  # Прорисовка статистики рекорд-последний результат
             screen.blit(bg, (0, 0))
             menu.draw(screen, 100, 100, 75)
             f = open("рекорд.txt", mode="r")
-            a = f.readlines()
-            sc = str(a[0]).replace('\n', '')
-            rec = str(a[1])
+            text = f.readlines()
+            score = str(text[0]).replace('\n', '')
+            record = str(text[1])
             f.close()
-            sc = comic_sans_font.render(f"Последний результат: {sc}", False, (255, 255, 0))
-            rec = comic_sans_font.render(f"Рекорд: {rec}", False, (255, 255, 0))
-            screen.blit(sc, (75, 400))
-            screen.blit(rec, (150, 450))
+            score = comic_sans_font.render(f"Последний результат: {score}", False, (255, 255, 0))
+            record = comic_sans_font.render(f"Рекорд: {record}", False, (255, 255, 0))
+            screen.blit(score, (75, 400))
+            screen.blit(record, (150, 450))
             pygame.display.flip()
         elif status[1]:
+            # Реализация физики прыжков
             if fall:
                 y += g
                 g += 0.1
@@ -114,36 +102,38 @@ def run_game(screen):
                 y -= v
             else:
                 fall = True
+            # Прорисовка счета во время аркады
             screen.fill((0, 0, 0))
             screen.blit(bg, (0, 0))
             sprites_games.draw(screen)
             sprites_games.update(y)
             sprites_games1.draw(screen)
             sprites_games1.update()
-            text2 = comic_sans_font.render(f"SCORE: {schet}", False, (255, 255, 255))
+            text2 = comic_sans_font.render(f"SCORE: {count}", False, (255, 255, 255))
             screen.blit(text2, (20, 20))
-            if perv_stena.walls():
+            # Реализация стен
+            if wall1.walls():
                 sprites_games1.empty()
-                perv_stena = Walls(randint(-302, 3), 250)
-            if perv_stena.coord()[0] == -100:
-                schet += 1
+                wall1 = Walls(randint(-302, 3), 250)
+            if wall1.coord()[0] == -100:
+                count += 1
                 tube_complete.play()
                 f = open("рекорд.txt", mode="r")
                 record = str(f.readlines()[1]).replace("b' ", '').replace("'", '')
                 f.seek(0)
                 f.close()
                 f = open("рекорд.txt", mode="w")
-                f.write(str(schet) + '\n', )
-                if int(record) < schet:
-                    f.write(str(schet))
+                f.write(str(count) + '\n', )
+                if int(record) < count:
+                    f.write(str(count))
                 else:
                     f.write(str(record))
                 f.close()
-            if y < 0 or y >= 495:
-                sostoyanie.set('Уровни')
+            if y < 0 or y >= 495:  # Барьеры сверху и снизу
+                stat.set('Уровни')
                 punch.play()
                 lose.play()
-        elif status[2]:
+        elif status[2]:  # Окно Game Over
             screen.fill((0, 0, 0))
             sprites_gameover.draw(screen)
             sprites_gameover.update()

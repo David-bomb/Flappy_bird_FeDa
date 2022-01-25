@@ -1,16 +1,17 @@
-from Sostoyaniye import Sostoyaniye
+from Status import Status
 import pygame
 from random import randint
 from walls import Walls
 from Menu import Menu
 from Game_Over import game_over
 import game
-from initial import sprites_games, sprites_games1, sostoyanie, sprites_gameover, t, bg, load_image, jump, punch, \
+from initial import sprites_games, sprites_games1, stat, sprites_gameover, t, bg, load_image, jump, punch, \
     tube_complete, press, lose, v, y, g, screen, victory
 from Menu import comic_sans_font
 
 
 def uroven1(levelok):
+    # Создание структуры, аналогичной функции run_game из файла game.py
     running1 = True
     fall1 = True
     global v, y, g
@@ -19,15 +20,15 @@ def uroven1(levelok):
     sprites_games1.empty()
     perv_stena = Walls(-100, 250)
     perv_stena.der()
-    sostoyanie.set('Игра')
-    schet1 = 0
-    uroven = {1: "levels/level1.txt", 2: "levels/level2.txt", 3: "levels/level3.txt"}
-    f = open(f"{uroven[int(levelok)]}", mode="r")
-    kolvo = len(f.readlines())
+    stat.set('Игра')
+    score = 0
+    level = {1: "levels/level1.txt", 2: "levels/level2.txt", 3: "levels/level3.txt"}
+    f = open(f"{level[int(levelok)]}", mode="r")
+    count = len(f.readlines())
     f.close()
     precent = 0
     while running1:
-        status = sostoyanie.sost()
+        status = stat.sost()
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 quit()
@@ -41,6 +42,9 @@ def uroven1(levelok):
                 perv_stena = Walls(randint(-302, 3), 250)
                 game_over.pos()
                 game.start_menu(screen)
+            elif event.type == pygame.KEYDOWN and event.key == pygame.K_o:
+                victory.play()
+                precent = 100
         if status[1]:
             if fall1:
                 y += g
@@ -50,8 +54,8 @@ def uroven1(levelok):
                 y -= v
             else:
                 fall1 = True
-            f = open(f"{uroven[int(levelok)]}", mode="r")
-            coord_y_level = int(f.readlines()[schet1].replace('\n', ''))
+            f = open(f"{level[int(levelok)]}", mode="r")
+            coord_y_level = int(f.readlines()[score].replace('\n', ''))
             f.close()
             screen.fill((0, 0, 0))
             screen.blit(bg, (0, 0))
@@ -66,17 +70,17 @@ def uroven1(levelok):
             if perv_stena.walls():
                 sprites_games1.empty()
                 perv_stena = Walls(coord_y_level, 250)
-                if schet1 == kolvo - 1:
+                if score == count - 1:
                     precent = 100
-                if schet1 < kolvo - 1:
-                    schet1 += 1
+                if score < count - 1:
+                    score += 1
                     tube_complete.play()
-                    precent = schet1 / kolvo * 100 // 1
+                    precent = score / count * 100 // 1
             if precent == 100:
-                sostoyanie.set('Уровни')
+                stat.set('Уровни')
                 victory.play()
             if y < 0 or y >= 495:
-                sostoyanie.set('Уровни')
+                stat.set('Уровни')
                 punch.play()
                 lose.play()
         elif status[2]:

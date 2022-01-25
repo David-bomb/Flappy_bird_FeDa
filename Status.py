@@ -1,10 +1,10 @@
-class Sostoyaniye():
+class Status():
     def __init__(self):
         self.lobby = False
         self.game = False
         self.level = False
 
-    def set(self, status):
+    def set(self, status): # Функция установки состояния игры
         if status == 'Лобби':
             self.lobby = True
             self.game = False
@@ -18,7 +18,7 @@ class Sostoyaniye():
             self.game = False
             self.level = True
 
-    def sost(self): # выводит то, какое сейчас открыто окно
+    def sost(self):  # выводит то, какое сейчас открыто окно
         if self.lobby:
             return [True, False, False]
         elif self.game:

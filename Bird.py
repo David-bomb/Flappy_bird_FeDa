@@ -2,10 +2,10 @@ import pygame
 from initial import perv_etap, vtor_etap, tret_etap
 from initial import sprites_games
 from initial import y
-from Sostoyaniye import Sostoyaniye
+from Status import Status
 from Game_Over import game_over
 
-status = Sostoyaniye()
+status = Status()
 
 
 class Bird(pygame.sprite.Sprite):

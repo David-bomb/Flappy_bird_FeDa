@@ -15,6 +15,7 @@ while run1:
             quit()
         if event.type == pygame.KEYDOWN or \
                 event.type == pygame.MOUSEBUTTONDOWN:
+            # Запуск музыки
             pygame.mixer.music.load('sounds/game_theme.ogg')
             pygame.mixer.music.play(loops=-1, start=0.0, fade_ms=0)
             press.play()

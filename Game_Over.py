@@ -17,7 +17,7 @@ class Game_over(pygame.sprite.Sprite):
         self.rect.x = -800
         self.b = True
 
-    def update(self, victory=0):
+    def update(self, victory=0):  # Проверка на победу
         if victory == 100:
             self.image = image_victory
             if self.rect.x >= 0 and self.b:

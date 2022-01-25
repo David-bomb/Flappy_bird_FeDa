@@ -3,18 +3,20 @@ import pygame
 from initial import bg, press
 import level_function
 import game
+
 pygame.init()
 pygame.font.init()
 
 
 def start_menu(screen):
+    # Инициализация меню
     menu = Menu()
     menu.append_option('Уровень 1', lambda: level_function.uroven1(1))
     menu.append_option('Уровень 2', lambda: level_function.uroven1(2))
     menu.append_option('Уровень 3', lambda: level_function.uroven1(3))
     menu.append_option('Назад', lambda: game.run_game(screen))
     running = True
-    while running:
+    while running:  # Создание биндов для использования меню
         for event in pygame.event.get():
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_DOWN or event.key == pygame.K_s:
