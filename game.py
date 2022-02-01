@@ -5,7 +5,7 @@ from walls import Walls
 from Menu import Menu
 from Game_Over import game_over
 from initial import sprites_games, sprites_games1, stat, sprites_gameover, t, bg, load_image, \
-    jump, punch, tube_complete, press, lose
+    jump, punch, tube_complete, press, lose, fon
 from Menu import comic_sans_font
 from levels_menu import start_menu
 
@@ -23,7 +23,7 @@ def start_screen(screen):  # функция создания заставки
 
     image = load_image('city.jpg')
     bg = pygame.transform.scale(image, (450, 500))
-    screen.blit(bg, (0, 0))
+    screen.blit(fon, (0, 0))
     text_coord = 50
     for line in intro_text:
         string_rendered = comic_sans_font.render(line, 1, pygame.Color('#ffef14'))

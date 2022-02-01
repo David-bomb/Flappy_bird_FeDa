@@ -36,6 +36,8 @@ stat = Status()  # Обьект статуса игры
 
 # Загрузка картинок
 bg = load_image('city.jpg')
+fon = load_image('fon.jpg')
+fon = pygame.transform.scale(fon, (450, 500))
 bg = pygame.transform.scale(bg, (450, 500))
 perv_etap = load_image('524.png')
 vtor_etap = load_image('525.png')
